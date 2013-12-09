@@ -14,7 +14,7 @@ use POSIX;
 use Time::Local;
 use constant PI => 4 * atan2(1, 1);	#3.1415926535897932
 
-our $VERSION = '1.0';
+our $VERSION = '1.01';
 #=========================================================#
 sub new {
 my ($class, $methodID) = @_;
@@ -573,7 +573,7 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	$mon++; 	$year += 1900;
 	#$year = 2013; $month = 12; $day = 5;
 	print "Today:  $mon/$mday/$year \n";
-	
+
 	$prayTime = Religion::Islam::PrayTime->new($calcMethod);
 
 	#Calculation Method: 0..7
@@ -588,25 +588,25 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	$calcMethod = 5; 
 	$prayTime->setCalcMethod($calcMethod);
 
-    # Time Formats: 0..3
-    #	0	24-hour format
-    #	1	12-hour format
-    #	2	12-hour format with no suffix
-    #	3	floating point number
+	# Time Formats: 0..3
+	#	0	24-hour format
+	#	1	12-hour format
+	#	2	12-hour format with no suffix
+	#	3	floating point number
 	$prayTime->setTimeFormat(1);
-	
+
 	#Juristic method for Asr: 0..1
 	#	0	Shafii (standard)
 	#	1	Hanafi
 	$prayTime->setAsrMethod(0);
-	
+
 	# Adjusting Methods for Higher Latitudes: 0..3
-    #	0	No adjustment
-    #	1	middle of night
-    #	2	1/7th of night
-    #	3	angle/60th of night
+	#	0	No adjustment
+	#	1	middle of night
+	#	2	1/7th of night
+	#	3	angle/60th of night
 	$prayTime->setHighLatsMethod(0);
-	
+
 	# set the angle for calculating Fajr
 	#$prayTime->setFajrAngle($angle);
 	#set the angle for calculating Maghrib
@@ -619,13 +619,13 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	#$prayTime->setMaghribMinutes($minutes);
 	#set the minutes after Maghrib for calculating Isha
 	#$prayTime->setIshaMinutes($minutes);
-	
+
 	# these functions return array or times
 	#@times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
 	#@times = $prayTime->getDatePrayerTimes($year, $month, $day, $latitude, $longitude, $timeZone);
 	#print "Fajr\tSunrise\tDhuhr\tAsr\tSunset\tMaghrib\tIsha\n";
 	#print join "\t", @times , "\n";
-	
+
 	# these functions return named hash array or times
 	%times = $prayTime->getDatePrayerTimesHash($year, $month, $day, $latitude, $longitude, $timeZone);
 	#%times = $prayTime->getPrayerTimesHash($date, $latitude, $longitude, $timeZone);
@@ -639,13 +639,15 @@ This module calculates Muslim prayers times, sunrise and sunset for any location
 
 =head1 SEE ALSO
 
+L<Date::HijriDate>
 L<Religion::Islam::Qibla>
 L<Religion::Islam::Quran>
+L<Religion::Islam::PrayTime>
 
 =head1 AUTHOR
 
-Dr. Ahmed Amin Elsheshtawy, Ph.D, EE E<lt>webmaster@islamware.com<gt>
-Website: L<http://www.islamware.com>  L<http://www.mewsoft.com>
+Ahmed Amin Elsheshtawy,  <support@islamware.com> <support@mewsoft.com>
+Website: http://www.islamware.com   http://www.mewsoft.com
 
 =head1 COPYRIGHT AND LICENSE
 
