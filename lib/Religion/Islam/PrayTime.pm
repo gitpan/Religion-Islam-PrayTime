@@ -4,7 +4,7 @@
 #Program Author   : Dr. Ahmed Amin Elsheshtawy, Ph.D. Physics, E.E.
 #Home Page           : http://www.islamware.com, http://www.mewsoft.com
 #Contact Email      : support@islamware.com, support@mewsoft.com
-#Copyrights � 2013 IslamWare. All rights reserved.
+#Copyrights  2013 IslamWare. All rights reserved.
 #==========================================================
 package Religion::Islam::PrayTime;
 
@@ -14,7 +14,7 @@ use POSIX;
 use Time::Local;
 use constant PI => 4 * atan2(1, 1);	#3.1415926535897932
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 #=========================================================#
 sub new {
 my ($class, $methodID) = @_;
@@ -567,7 +567,7 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	$date = time();
 	$latitude = 30.0599;		# Cairo, Egypt
 	$longitude = 31.2599;		# Cairo, Egypt
-	$timeZone = 2;				# Cairo, Egypt
+	$timeZone = 2;			# Cairo, Egypt
 	
 	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $dst) = localtime(time);
 	$mon++; 	$year += 1900;
@@ -610,14 +610,19 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 
 	# set the angle for calculating Fajr
 	#$prayTime->setFajrAngle($angle);
+
 	#set the angle for calculating Maghrib
 	#$prayTime->setMaghribAngle($angle);
+
 	# set the angle for calculating Isha
 	#$prayTime->setIshaAngle($angle);
+
 	# set the minutes after mid-day for calculating Dhuhr
 	#$prayTime->setDhuhrMinutes($minutes);
+
 	#set the minutes after Sunset for calculating Maghrib
 	#$prayTime->setMaghribMinutes($minutes);
+
 	#set the minutes after Maghrib for calculating Isha
 	#$prayTime->setIshaMinutes($minutes);
 
