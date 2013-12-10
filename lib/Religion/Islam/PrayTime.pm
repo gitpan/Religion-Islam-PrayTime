@@ -14,7 +14,7 @@ use POSIX;
 use Time::Local;
 use constant PI => 4 * atan2(1, 1);	#3.1415926535897932
 
-our $VERSION = '1.03';
+our $VERSION = '1.04';
 #=========================================================#
 sub new {
 my ($class, $methodID) = @_;
@@ -556,6 +556,9 @@ my ($self, $logs) = @_;
 }
 #=========================================================#
 1;
+
+=encoding utf-8
+
 =head1 NAME
 
 Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
@@ -578,14 +581,14 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	$prayTime = Religion::Islam::PrayTime->new($calcMethod);
 
 	#Calculation Method: 0..7
-	#	0		Ithna Ashari
-	#	1		University of Islamic Sciences, Karachi
-	#	2		Islamic Society of North America (ISNA)
-	#	3		Muslim World League (MWL)
-	#	4		Umm al-Qura, Makkah
-	#	5		Egyptian General Authority of Survey
-	#	6		Custom Setting
-	#	7		Institute of Geophysics, University of Tehran
+	#	0	Ithna Ashari
+	#	1	University of Islamic Sciences, Karachi
+	#	2	Islamic Society of North America (ISNA)
+	#	3	Muslim World League (MWL)
+	#	4	Umm al-Qura, Makkah
+	#	5	Egyptian General Authority of Survey
+	#	6	Custom Setting
+	#	7	Institute of Geophysics, University of Tehran
 	$calcMethod = 5;
 	$prayTime->setCalcMethod($calcMethod);
 
