@@ -4,7 +4,7 @@
 #Program Author   : Dr. Ahmed Amin Elsheshtawy, Ph.D. Physics, E.E.
 #Home Page           : http://www.islamware.com, http://www.mewsoft.com
 #Contact Email      : support@islamware.com, support@mewsoft.com
-#Copyrights © 2013 IslamWare. All rights reserved.
+#Copyrights ï¿½ 2013 IslamWare. All rights reserved.
 #==========================================================
 package Religion::Islam::PrayTime;
 
@@ -14,7 +14,7 @@ use POSIX;
 use Time::Local;
 use constant PI => 4 * atan2(1, 1);	#3.1415926535897932
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 #=========================================================#
 sub new {
 my ($class, $methodID) = @_;
@@ -568,12 +568,13 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	$latitude = 30.0599;		# Cairo, Egypt
 	$longitude = 31.2599;		# Cairo, Egypt
 	$timeZone = 2;				# Cairo, Egypt
-
+	
 	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $dst) = localtime(time);
 	$mon++; 	$year += 1900;
 	#$year = 2013; $month = 12; $day = 5;
 	print "Today:  $mon/$mday/$year \n";
-
+	
+	$calcMethod = 4;
 	$prayTime = Religion::Islam::PrayTime->new($calcMethod);
 
 	#Calculation Method: 0..7
@@ -585,7 +586,7 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	#	5		Egyptian General Authority of Survey
 	#	6		Custom Setting
 	#	7		Institute of Geophysics, University of Tehran
-	$calcMethod = 5; 
+	$calcMethod = 5;
 	$prayTime->setCalcMethod($calcMethod);
 
 	# Time Formats: 0..3
@@ -620,13 +621,13 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	#set the minutes after Maghrib for calculating Isha
 	#$prayTime->setIshaMinutes($minutes);
 
-	# these functions return array or times
+	# these functions return array of times
 	#@times = $prayTime->getPrayerTimes($date, $latitude, $longitude, $timeZone);
 	#@times = $prayTime->getDatePrayerTimes($year, $month, $day, $latitude, $longitude, $timeZone);
 	#print "Fajr\tSunrise\tDhuhr\tAsr\tSunset\tMaghrib\tIsha\n";
 	#print join "\t", @times , "\n";
 
-	# these functions return named hash array or times
+	# these functions return named hash array of times
 	%times = $prayTime->getDatePrayerTimesHash($year, $month, $day, $latitude, $longitude, $timeZone);
 	#%times = $prayTime->getPrayerTimesHash($date, $latitude, $longitude, $timeZone);
 	while (($k, $v) = each %times) {
