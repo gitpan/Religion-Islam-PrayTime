@@ -4,7 +4,7 @@
 #Program Author   : Dr. Ahmed Amin Elsheshtawy, Ph.D. Physics, E.E.
 #Home Page           : http://www.islamware.com, http://www.mewsoft.com
 #Contact Email      : support@islamware.com, support@mewsoft.com
-#Copyrights  2013 IslamWare. All rights reserved.
+#Copyrights  2013-2014 IslamWare. All rights reserved.
 #==========================================================
 package Religion::Islam::PrayTime;
 
@@ -14,7 +14,7 @@ use POSIX;
 use Time::Local;
 use constant PI => 4 * atan2(1, 1);	#3.1415926535897932
 
-our $VERSION = '1.04';
+our $VERSION = '1.05';
 #=========================================================#
 sub new {
 my ($class, $methodID) = @_;
@@ -28,8 +28,8 @@ my ($class, $methodID) = @_;
 	$self->{MWL} = 3;						# Muslim World League (MWL)
 	$self->{Makkah} = 4;					# Umm al-Qura, Makkah
 	$self->{Egypt} = 5;						# Egyptian General Authority of Survey
-	$self->{Custom} = 6;					# Custom Setting
-	$self->{Tehran} = 7;					# Institute of Geophysics, University of Tehran
+	$self->{Tehran} = 6;					# Institute of Geophysics, University of Tehran
+	$self->{Custom} = 7;					# Custom Setting
 
     # Juristic Methods
     $self->{Shafii} = 0;						# Shafii (standard)
@@ -70,6 +70,9 @@ my ($class, $methodID) = @_;
     #------------------- Calc Method Parameters --------------------
     #$self->{methodParams};
 	
+	$self->{am} = "am";
+	$self->{pm} = "pm";
+
 	$methodID += 0;
 	$self->PrayTime($methodID);
 
@@ -209,6 +212,13 @@ my ($self, $timeFormat) = @_;
 	$self->{timeFormat} = $timeFormat;
 }
 
+sub am_pm {
+my ($self, $am, $pm) = @_;
+	$self->{am} = $am;
+	$self->{pm} = $pm;
+	return ($self->{am}, $self->{pm});
+}
+
 # convert float hours to 24h format
 sub floatToTime24 {
 my ($self, $time) = @_;
@@ -227,7 +237,7 @@ my ($self, $time, $noSuffix) = @_;
 	$time = $self->fixhour($time+ 0.5/ 60);  # add 0.5 minutes to round
 	my $hours = floor($time);
 	my $minutes = floor(($time- $hours)* 60);
-	my $suffix = $hours >= 12 ? ' pm' : ' am';
+	my $suffix = $hours >= 12 ? $self->{pm} : $self->{am};
 	$hours = ($hours+ 12- 1)% 12+ 1;
 	return $hours. ':'. $self->twoDigitsFormat($minutes). ($noSuffix ? '' : $suffix);
 }
@@ -574,21 +584,22 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	
 	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $dst) = localtime(time);
 	$mon++; 	$year += 1900;
-	#$year = 2013; $month = 12; $day = 5;
+	#$year = 2014; $month = 12; $day = 5;
 	print "Today:  $mon/$mday/$year \n";
 	
 	$calcMethod = 4;
 	$prayTime = Religion::Islam::PrayTime->new($calcMethod);
 
-	#Calculation Method: 0..7
+	# Calculation Method: 0..7
 	#	0	Ithna Ashari
 	#	1	University of Islamic Sciences, Karachi
 	#	2	Islamic Society of North America (ISNA)
 	#	3	Muslim World League (MWL)
 	#	4	Umm al-Qura, Makkah
 	#	5	Egyptian General Authority of Survey
-	#	6	Custom Setting
-	#	7	Institute of Geophysics, University of Tehran
+	#	6	Institute of Geophysics, University of Tehran
+	#	7	Custom Setting
+
 	$calcMethod = 5;
 	$prayTime->setCalcMethod($calcMethod);
 
@@ -598,8 +609,11 @@ Religion::Islam::PrayTime - Calculates Muslim Prayers Times, Sunrise, and Sunset
 	#	2	12-hour format with no suffix
 	#	3	floating point number
 	$prayTime->setTimeFormat(1);
+	
+	# set text for am/pm suffix for other languages, defaults english
+	$prayTime->am_pm("am", "pm");
 
-	#Juristic method for Asr: 0..1
+	# Juristic method for Asr: 0..1
 	#	0	Shafii (standard)
 	#	1	Hanafi
 	$prayTime->setAsrMethod(0);
@@ -660,7 +674,7 @@ Website: http://www.islamware.com   http://www.mewsoft.com
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2013 by Dr. Ahmed Amin Elsheshtawy webmaster@islamware.com,
+Copyright (C) 2013-2014 by Dr. Ahmed Amin Elsheshtawy webmaster@islamware.com,
 L<http://www.islamware.com> 
 L<http://www.mewsoft.com>
 
