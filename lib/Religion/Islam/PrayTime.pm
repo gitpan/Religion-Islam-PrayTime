@@ -14,7 +14,7 @@ use POSIX;
 use Time::Local;
 use constant PI => 4 * atan2(1, 1);	#3.1415926535897932
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 #=========================================================#
 sub new {
 my ($class, $methodID) = @_;
@@ -46,6 +46,8 @@ my ($class, $methodID) = @_;
     $self->{Time12} = 1;					# 12-hour format
     $self->{Time12NS} = 2;				# 12-hour format with no suffix
     $self->{Float} = 3;						# floating point number
+
+	$self->{decimal_size} = 2;			# decimal size for Float time format
 
     # Time Names
     $self->{timeNames} = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Sunset', 'Maghrib', 'Isha'];
@@ -374,7 +376,10 @@ my ($self, @times) = @_;
 sub adjustTimesFormat {
 my ($self, @times) = @_;
 
-	if ($self->{timeFormat} == $self->{Float}) {return @times};
+	if ($self->{timeFormat} == $self->{Float}) {
+		map {$_ = sprintf("%0.$self->{decimal_size}f", $_)} @times;
+		return @times;
+	};
 
 	for (my $i=0; $i<7; $i++) {
 		if ($self->{timeFormat} == $self->{Time12}) {
@@ -388,6 +393,10 @@ my ($self, @times) = @_;
 		}
 	}
 	return @times;
+}
+sub decimal_size { 
+my ($self, $size) = @_;
+	$self->{decimal_size} = $size;
 }
 
 sub numeric { 
